@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/rohannair11/go-crm/lead"
-
 	"github.com/gofiber/fiber"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/rohannair11/go-crm/database"
+	"github.com/rohannair11/go-crm/lead"
 )
 
 func setupRoutes(app *fiber.App) {
@@ -21,12 +21,11 @@ func initDatabase() {
 	var err error
 	database.DBConn, err = gorm.Open("sqlite3", "leads.db")
 	if err != nil {
-		panic("failed to connect to database")
+		panic("failed to connect database")
 	}
 	fmt.Println("Connection opened to database")
-	database.DBConn.AutoMigrate(&lead.Lead())
-	fmt.Println("DB migrated")
-
+	database.DBConn.AutoMigrate(&lead.Lead{})
+	fmt.Println("Database Migrated")
 }
 
 func main() {

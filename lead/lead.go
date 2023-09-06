@@ -15,14 +15,14 @@ type Lead struct {
 	Phone   int    `json:"phone"`
 }
 
-func getLeads(c *fiber.Ctx) {
+func GetLeads(c *fiber.Ctx) {
 	db := database.DBConn
 	var leads []Lead
 	db.Find(&leads)
 	c.JSON(leads)
 
 }
-func getLead(c *fiber.Ctx) {
+func GetLead(c *fiber.Ctx) {
 	id := c.Params("id")
 	db := database.DBConn
 	var lead Lead
